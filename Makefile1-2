@@ -2,18 +2,18 @@ CC=gcc
 CFLAGS=-std=c11 -Wall
 LDLIBS=-lm
 RM=rm -f
-OBJ=testevenement.o evenement.o
+OBJ=testevenement.o evenement.o date.o
 EXE=testevenement
 # Pour produire le fichier exécutable
 $(EXE):$(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(EXE) $(LDLIBS)
 # Pour produire les fichiers objets
-testevenement.o:testevenement.c evenement.h
+testevenement.o:testevenement.c evenement.h date.h
 	$(CC) $(CFLAGS) -c testevenement.c
 evenement.o:evenement.c evenement.h
 	$(CC) $(CFLAGS) -c evenement.c
-#module2.o:module2.c module2.h
-#	$(CC) $(CFLAGS) -c module2.c
+date.o:date.c date.h
+	$(CC) $(CFLAGS) -c date.c
 # Pour effacer les objets et les exécutables
 clean:
 	$(RM) $(OBJ) $(EXE)

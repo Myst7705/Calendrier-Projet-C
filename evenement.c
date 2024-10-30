@@ -1,6 +1,7 @@
 #include "evenement.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 struct sEvenement{
     char *titre;
@@ -9,15 +10,25 @@ struct sEvenement{
 };
 
 tEvenement CreerEvenement(const char* titre, struct sDate debut, struct sDate fin){
+    // Initialise l'evenement que l'on retournera et verifie si tout est valide
     const tEvenement ptr_evenement = malloc(sizeof(struct sEvenement));
 
     if (ptr_evenement == NULL || !EstValide(debut) || !EstValide(fin)){
         return NULL;
     }
 
+    // On remplace les attributs de notre evenement
     ptr_evenement->debut = debut;
     ptr_evenement->fin = fin;
-    strcpy(titre, ptr_evenement->titre);
+    // Alloue la memoire pour le titre de l'evenement
+    ptr_evenement->titre = malloc(strlen(titre) + 1);
+
+    // Verification de l'allocation memoire du titre
+    if (ptr_evenement->titre == NULL){
+        return NULL;
+    }
+    // Copie du titre donne dans l'espace cree
+    strcpy(ptr_evenement->titre, titre);
 
     return ptr_evenement;
 }
