@@ -13,7 +13,7 @@ tEvenement CreerEvenement(const char* titre, struct sDate debut, struct sDate fi
     // Initialise l'evenement que l'on retournera et verifie si tout est valide
     const tEvenement ptr_evenement = malloc(sizeof(struct sEvenement));
 
-    if (ptr_evenement == NULL || !EstValide(debut) || !EstValide(fin)){
+    if (ptr_evenement == NULL || !EstValide(debut) || !EstValide(fin) || Compare(debut, fin) > 0){
         return NULL;
     }
 
@@ -52,8 +52,14 @@ void DetruitEvenement(tEvenement* pEvenement){
 }
 
 void AfficheEvenement(tEvenement evenement){
-    char debutStr[14], finStr[14];
-    YYYYMMDDTHHMM(debutStr, evenement->debut);
-    YYYYMMDDTHHMM(finStr, evenement->fin);
-    printf("%s du %s au %s\n", evenement->titre, debutStr, finStr);
+    // FIXME: l'affichage de debutStr est possede par un esprit demoniaque, le probleme est supposement localise ici
+    // Fixed (Il fallait penser a ajouter '\0' en 13eme position de la str dans YYYYMMDDTHHMM)
+    char str_debut[14];
+    //str_debut[13] = '\0'; Solution pre-fix de YYYYMMDDTHHMM (brute force)
+    char str_fin[14];
+
+    YYYYMMDDTHHMM(str_debut, evenement->debut);
+    YYYYMMDDTHHMM(str_fin, evenement->fin);
+
+    printf("%s du %s au %s\n", evenement->titre, str_debut, str_fin);
 }

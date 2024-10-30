@@ -3,20 +3,20 @@
 
 int main(){
     struct sDate date1, date2;
-    printf("Entrez la date 1: ");
+    printf("Entrez la date 1 (YYYYMMDDHHMM): ");
     scanf("%d", &date1.annee);
     scanf("%hhd", &date1.mois);
     scanf("%hhd", &date1.jour);
     scanf("%hhd", &date1.heure);
     scanf("%hhd", &date1.minute);
-    printf("Entrez la date 2: ");
+    printf("Entrez la date 2 (YYYYMMDDHHMM): ");
     scanf("%d", &date2.annee);
     scanf("%hhd", &date2.mois);
     scanf("%hhd", &date2.jour);
     scanf("%hhd", &date2.heure);
     scanf("%hhd", &date2.minute);
 
-    char titre[] = "Destruction de la republique";
+    const char titre[] = "Destruction de la republique";
 
     tEvenement evenement = CreerEvenement(titre, date1, date2);
     if (evenement == NULL){

@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int main(){
-int annee1, mois1, jour1, heure1, minute1;
+    /*int annee1, mois1, jour1, heure1, minute1;
     printf("Date 1\n");
     struct sDate date1;
     scanf("%d", &annee1);
@@ -16,7 +16,7 @@ int annee1, mois1, jour1, heure1, minute1;
     date1.heure = heure1;
     date1.minute = minute1;
 
-    /*printf("Date 2\n");
+    printf("Date 2\n");
     struct sDate date2;
     scanf("%d", &annee2);
     scanf("%d", &mois2);
@@ -31,11 +31,21 @@ int annee1, mois1, jour1, heure1, minute1;
 
     struct sDate date3 = {.annee = 2000, .mois = 12, .jour = 2, .heure = 12, .minute = 30};
 
-    printf("%d\n", Appartient(date3, date1, date2));*/
+    printf("%d\n", Appartient(date3, date1, date2));
 
     char dateStr[14];
     YYYYMMDDTHHMM(dateStr, date1);
-    printf("%s\n", dateStr);
+    printf("%s\n", dateStr);*/
+
+    struct sDate date1 = {2024, 10, 31, 14, 30};
+    struct sDate date2 = {2003, 12, 2, 12, 15};
+    struct sDate date3 = {1112, 6, 14, 2, 0};
+    char dateStr1[14], dateStr2[14], dateStr3[14];
+    YYYYMMDDTHHMM(dateStr1, date1);
+    YYYYMMDDTHHMM(dateStr2, date2);
+    YYYYMMDDTHHMM(dateStr3, date3);
+
+    printf("%s\n%s\n%s\n", dateStr1, dateStr2, dateStr3);
 
     return 0;
 }

@@ -90,6 +90,7 @@ void YYYYMMDDTHHMM(char* destination, const struct sDate date){
     heureToStr(destination, date.heure);
     minuteToStr(destination, date.minute);
     destination[8] = 'T';
+    destination[13] = '\0';
 }
 
 static void yearToStr(char *destination, int annee){
