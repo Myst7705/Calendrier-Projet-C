@@ -81,12 +81,9 @@ int SupprimeEvenementsPeriode(tCalendrier* pCalendrier, struct sDate debut, stru
 
     int estPremierEvenementValide = 1;
 
-    printf("Debut Supprime invalide\n");
 
     while (calActuel != NULL){
-        printf("Debut boucle while\n");
         if (Chevauche(Debut(calActuel->pEvenement), Fin(calActuel->pEvenement), debut, fin)){
-            printf("Evenement invalide\n");
             // Si le sCal est invalide, on le free en utilisant un tCal precedent pour ne pas le perdre
             DetruitEvenement(&(calActuel->pEvenement));
             precedent = calActuel;
@@ -95,7 +92,6 @@ int SupprimeEvenementsPeriode(tCalendrier* pCalendrier, struct sDate debut, stru
             nbSupprime++;
 
         } else {
-            printf("Evenement valide\n");
             if (!estPremierEvenementValide){
                 // On relie le dernier tCal valide avec l'actuel qui est valide
                 *pDernierPSuivantValide = calActuel;
@@ -120,4 +116,34 @@ int SupprimeEvenementsPeriode(tCalendrier* pCalendrier, struct sDate debut, stru
     *pDernierPSuivantValide = NULL;
 
     return nbSupprime;
+}
+
+int ExportCalendrier(tCalendrier calendrier, const char* fichier){
+    FILE *fich = fopen(fichier, "wt");
+    if (fich == NULL){
+        perror("Sapristi saucisse, le fopen est capoute");
+        return -1;
+    }
+
+    fprintf(fich, "BEGIN:VCALENDAR\n");
+    fprintf(fich, "VERSION:2.0\n");
+
+    tCalendrier calActuel = calendrier;
+
+    while (calActuel != NULL){
+        char dateStr[14];
+
+        fprintf(fich, "BEGIN:VEVENT\n");
+        fprintf(fich, "SUMMARY:%s\n", Titre(calActuel->pEvenement));
+        YYYYMMDDTHHMM(dateStr ,Debut(calActuel->pEvenement));
+        fprintf(fich, "DTSTART:%s00\n", dateStr);
+        YYYYMMDDTHHMM(dateStr ,Fin(calActuel->pEvenement));
+        fprintf(fich, "DTEND:%s00\n", dateStr);
+        fprintf(fich, "END:VEVENT\n");
+
+        calActuel = calActuel->pSuivant;
+    }
+
+    fclose(fich);
+    return 0;
 }

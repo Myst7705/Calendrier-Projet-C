@@ -42,6 +42,8 @@ int main(){
     printf("\n\n");
     AfficheCalendrier(calendrier);
 
+    ExportCalendrier(calendrier, "calendrier.ical");
+
     DetruitCalendrier(&calendrier);
     printf("Apres destruction calendrier\n");
 
